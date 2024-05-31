@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link rel="stylesheet" href="v3.css">
+    <title>Vue Calculator</title>
+</head>
+<body>
+<div id="app">
+    <input v-model="firstNumber" type="text">
+    <select v-model="operation">
+        <option value="plus">+</option>
+        <option value="minus">-</option>
+        <option value="multiply">*</option>
+        <option value="divide">/</option>
+        <option value="remainder">%</option>
+        <option value="exponentiation">**</option>
+        <option value="percent">%%</option>
+        <option value="root">\</option>
+    </select>
+    <input v-model="secondNumber" type="text">
+    <button @click="calculate">Calculate</button>
+    <p id="result">Result: {{ result }}</p>
+</div>
+
+<script>
+new Vue({
+        el: '#app',
+        data: {
+            result: 0,
+            operation: 'plus'
+        },
+        methods: {
+            calculate: function() {
+                if (this.operation === 'plus') {
+                    this.result = Number(this.firstNumber) + Number(this.secondNumber);
+                } else if (this.operation === 'minus') {
+                    this.result = Number(this.firstNumber) - Number(this.secondNumber);
+                } else if (this.operation === 'multiply') {
+                    this.result = Number(this.firstNumber) * Number(this.secondNumber);
+                } else if (this.operation === 'divide') {
+                    this.result = Number(this.firstNumber) / Number(this.secondNumber);
+                } else if (this.operation === 'remainder') {
+                    if (this.secondNumber >= this.firstNumber) {
+                        this.result = 'genius'
+                    } else {
+                        this.result = Number(this.firstNumber) % Number(this.secondNumber);
+                    }
+                } else if (this.operation === 'exponentiation') {
+                    if (this.firstNumber && this.secondNumber > -1 && this.firstNumber && this.secondNumber < 101) {
+                        this.result = Number(this.firstNumber) ** Number(this.secondNumber);
+                    } else {
+                        this.result = 'genius'
+                    }
+                } else if (this.operation === 'percent') {
+                        this.result = Number(this.firstNumber) * (Number(this.secondNumber) / 100);
+                } else if (this.operation === 'root') {
+                    if (this.firstNumber >= 0) {
+                        this.result = Math.sqrt(Number(this.firstNumber));
+                    } else (
+                        this.result = 'genius'
+                    )
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
